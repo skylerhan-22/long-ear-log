@@ -1,0 +1,12 @@
+{
+  "name": "Long Ear Log · 健身饮食日志",
+  "short_name": "Long Ear Log",
+  "description": "记录每周训练、训练计时与每日饮食。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ec",
+  "theme_color": "#171714",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
