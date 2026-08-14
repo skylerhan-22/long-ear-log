@@ -29,15 +29,20 @@ test("server-renders the Long Ear Log product surface", async () => {
   assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/i);
 });
 
-test("keeps the requested workout interaction gates in source", async () => {
+test("keeps the reviewed workout, food, and monochrome rules in source", async () => {
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
-  assert.match(page, /const allSetsDone = completed === doneSets\.length/);
+  assert.match(page, /const allSetsDone = activeSetCount > 0 && completed === activeSetCount/);
   assert.match(page, /disabled=\{!allSetsDone\}/);
-  assert.match(page, /elapsed>0\?"继续":"开始计时"/);
-  assert.match(page, /onClick=\{openPlanEditor\}/);
+  assert.match(page, /elapsed > 0 \? "继续" : "开始计时"/);
+  assert.match(page, /function leaveWorkout\(\)[\s\S]*setTab\("today"\)/);
+  assert.match(page, /onClick=\{\(\) => openPlanEditor\(4\)\}/);
   assert.match(page, /setWeekPlan\(planDraft\)/);
+  assert.match(page, /结果不是实际模型计算/);
+  assert.match(page, /className="food-entry-screen"/);
   assert.match(css, /\.mascot-sprite[^}]*aspect-ratio:1/);
   assert.match(css, /\.workout-screen[^}]*display:flex/);
+  assert.match(css, /Strict black and white: no gray or color fills/);
+  assert.match(css, /filter:grayscale\(1\) contrast\(100\)/);
 });
