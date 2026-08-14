@@ -51,5 +51,6 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(page, /scrollTop > 36/);
   assert.match(css, /\.workout-clock[^}]*min-height:45vh/);
   assert.match(css, /\.workout-clock\.compact[^}]*max-height:72px/);
-  assert.match(css, /\.mascot-sprite\{background-color:#fff;filter:none;mix-blend-mode:normal\}/);
+  assert.match(page, /className="sprite-art"/);
+  assert.match(css, /\.sprite-art[^}]*transform:scale\(\.78\)/);
 });

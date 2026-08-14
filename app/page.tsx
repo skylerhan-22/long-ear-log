@@ -47,7 +47,7 @@ function formatTime(total: number) {
 function Sprite({ sheet, col = 0, row = 0, rows = 3, className = "" }: { sheet: string; col?: number; row?: number; rows?: number; className?: string }) {
   const y = rows === 3 ? [0, 50, 100][row] : [0, 33.333, 66.666, 100][row];
   const source = sheet === "food" ? "/rabbit-food-hd.png" : "/rabbit-actions-hd.png";
-  return <div className={`mascot-sprite ${className}`} style={{ backgroundImage: `url('${source}')`, backgroundSize: `200% ${rows * 100}%`, backgroundPosition: `${col * 100}% ${y}%` }} aria-hidden="true" />;
+  return <div className={`mascot-sprite ${className}`} aria-hidden="true"><span className="sprite-art" style={{ backgroundImage: `url('${source}')`, backgroundSize: `200% ${rows * 100}%`, backgroundPosition: `${col * 100}% ${y}%` }} /></div>;
 }
 
 function MealVisual({ type, className = "" }: { type: string; className?: string }) {

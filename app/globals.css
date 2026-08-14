@@ -198,7 +198,8 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .entry-intro p:last-child,.ai-panel p,.food-row small,.plan-copy small{color:#000}
 
 /* High-resolution rabbit art and the expanding workout clock */
-.mascot-sprite{background-color:#fff;filter:none;mix-blend-mode:normal}
+.mascot-sprite{position:relative;overflow:hidden;background-color:#fff;filter:none;mix-blend-mode:normal}
+.sprite-art{position:absolute;inset:0;display:block;background-repeat:no-repeat;transform:scale(.78);transform-origin:center center}
 .meal-photo,.food-thumb-art{border:0}
 .calendar-stamp{width:88%;height:88%;display:block;object-fit:contain;mix-blend-mode:multiply}
 .month-stamp{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);display:block;object-fit:contain;mix-blend-mode:multiply}
