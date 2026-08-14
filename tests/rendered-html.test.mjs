@@ -59,6 +59,12 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(css, /\.meal-card\{padding:8px 7px 10px;border:1\.5px solid #000;background:#fff\}/);
   assert.match(css, /\.meal-art \.sprite-art,\.food-thumb-art \.sprite-art\{transform:scale\(\.96\)\}/);
   assert.match(page, /rabbit-squat-standalone\.png/);
+  assert.match(page, /rabbit-upper-push\.png/);
+  assert.match(page, /rabbit-stretch\.png/);
+  assert.match(page, /rabbit-back\.png/);
+  assert.match(page, /rabbit-walk\.png/);
+  assert.match(page, /rabbit-full-body\.png/);
+  assert.match(page, /rabbit-rest\.png/);
   assert.match(css, /\.standalone-detail-mascot\{display:block;object-fit:contain\}/);
   assert.match(css, /\.detail-mascot \.sprite-art\{transform:scale\(\.9\)\}/);
 });
