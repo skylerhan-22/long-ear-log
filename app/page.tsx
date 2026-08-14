@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 
 type Tab = "today" | "training" | "food" | "profile";
 type Exercise = { id: number; name: string; sets: number; reps: number; weight: string };
-type PlanDay = { day: string; short: string; name: string; state: "已完成" | "今日" | "待完成" | "休息"; exercises: Exercise[] };
+type TrainingCategory = "upper_push" | "stretch" | "back" | "walk" | "glutes" | "full_body" | "rest";
+type PlanDay = { day: string; short: string; name: string; category: TrainingCategory; state: "已完成" | "今日" | "待完成" | "休息"; exercises: Exercise[] };
 type Meal = { id: number; type: string; calories: number; protein?: number; carbs?: number; fat?: number };
 
 const gluteExercises: Exercise[] = [
@@ -15,40 +16,57 @@ const gluteExercises: Exercise[] = [
 ];
 
 const initialWeekPlan: PlanDay[] = [
-  { day: "周一", short: "一", name: "上肢推", state: "已完成", exercises: [
+  { day: "周一", short: "一", name: "上肢推", category: "upper_push", state: "已完成", exercises: [
     { id: 11, name: "哑铃卧推", sets: 4, reps: 10, weight: "8kg" },
     { id: 12, name: "坐姿推肩", sets: 4, reps: 10, weight: "6kg" },
     { id: 13, name: "绳索下压", sets: 3, reps: 12, weight: "15kg" },
   ]},
-  { day: "周二", short: "二", name: "恢复与拉伸", state: "休息", exercises: [] },
-  { day: "周三", short: "三", name: "背部训练", state: "已完成", exercises: [
+  { day: "周二", short: "二", name: "恢复与拉伸", category: "stretch", state: "休息", exercises: [] },
+  { day: "周三", short: "三", name: "背部训练", category: "back", state: "已完成", exercises: [
     { id: 31, name: "高位下拉", sets: 4, reps: 10, weight: "25kg" },
     { id: 32, name: "坐姿划船", sets: 4, reps: 10, weight: "25kg" },
     { id: 33, name: "面拉", sets: 3, reps: 15, weight: "12kg" },
   ]},
-  { day: "周四", short: "四", name: "散步恢复", state: "休息", exercises: [] },
-  { day: "周五", short: "五", name: "臀腿训练", state: "今日", exercises: gluteExercises },
-  { day: "周六", short: "六", name: "全身循环", state: "待完成", exercises: [
+  { day: "周四", short: "四", name: "散步恢复", category: "walk", state: "休息", exercises: [] },
+  { day: "周五", short: "五", name: "臀腿训练", category: "glutes", state: "今日", exercises: gluteExercises },
+  { day: "周六", short: "六", name: "全身循环", category: "full_body", state: "待完成", exercises: [
     { id: 61, name: "壶铃深蹲", sets: 3, reps: 12, weight: "12kg" },
     { id: 62, name: "俯卧撑", sets: 3, reps: 10, weight: "自重" },
     { id: 63, name: "农夫行走", sets: 3, reps: 40, weight: "秒" },
   ]},
-  { day: "周日", short: "日", name: "完全休息", state: "休息", exercises: [] },
+  { day: "周日", short: "日", name: "完全休息", category: "rest", state: "休息", exercises: [] },
 ];
 
 const mealArt: Record<string, { col: number; row: number }> = {
   早餐: { col: 0, row: 0 }, 午餐: { col: 1, row: 0 }, 晚餐: { col: 0, row: 1 }, 零食: { col: 1, row: 1 },
 };
 
-const planArt = [
-  "/rabbit-upper-push.png",
-  "/rabbit-stretch.png",
-  "/rabbit-back.png",
-  "/rabbit-walk.png",
-  "/rabbit-squat-standalone.png",
-  "/rabbit-full-body.png",
-  "/rabbit-rest.png",
+const trainingCategoryOptions: { id: TrainingCategory; label: string; image: string }[] = [
+  { id: "upper_push", label: "上肢推", image: "/rabbit-upper-push.png" },
+  { id: "back", label: "上肢拉／背部", image: "/rabbit-back.png" },
+  { id: "glutes", label: "臀腿", image: "/rabbit-squat-standalone.png" },
+  { id: "full_body", label: "全身／核心／循环", image: "/rabbit-full-body.png" },
+  { id: "walk", label: "有氧／跑步／散步", image: "/rabbit-walk.png" },
+  { id: "stretch", label: "拉伸／瑜伽／主动恢复", image: "/rabbit-stretch.png" },
+  { id: "rest", label: "完全休息", image: "/rabbit-rest.png" },
 ];
+
+const planArt = Object.fromEntries(trainingCategoryOptions.map((option) => [option.id, option.image])) as Record<TrainingCategory, string>;
+
+function suggestTrainingCategory(name: string, hasExercises: boolean): TrainingCategory {
+  if (/散步|走路|步行|跑步|慢跑|有氧/.test(name)) return "walk";
+  if (/拉伸|瑜伽|灵活|恢复/.test(name)) return "stretch";
+  if (/臀|腿|下肢|深蹲/.test(name)) return "glutes";
+  if (/背|划船|下拉|上肢拉/.test(name)) return "back";
+  if (/胸|肩|手臂|上肢|推/.test(name)) return "upper_push";
+  if (/全身|循环|核心|HIIT|体能/.test(name)) return "full_body";
+  if (/完全休息|休息|睡眠/.test(name)) return "rest";
+  return hasExercises ? "full_body" : "rest";
+}
+
+function getPlanArt(day: PlanDay) {
+  return planArt[day.category || suggestTrainingCategory(day.name, day.exercises.length > 0)];
+}
 
 function formatTime(total: number) {
   return `${Math.floor(total / 60).toString().padStart(2, "0")}:${(total % 60).toString().padStart(2, "0")}`;
@@ -72,6 +90,7 @@ export default function Home() {
   const [planEditorOpen, setPlanEditorOpen] = useState(false);
   const [planEditorDay, setPlanEditorDay] = useState(4);
   const [planDraft, setPlanDraft] = useState<PlanDay[]>(initialWeekPlan);
+  const [categoryManual, setCategoryManual] = useState<boolean[]>(Array(7).fill(false));
   const [workoutOpen, setWorkoutOpen] = useState(false);
   const [activeWorkoutDay, setActiveWorkoutDay] = useState(4);
   const [workoutRunning, setWorkoutRunning] = useState(false);
@@ -160,13 +179,24 @@ export default function Home() {
   }
 
   function openPlanEditor(dayIndex = 4) {
-    setPlanDraft(weekPlan.map((day) => ({ ...day, exercises: day.exercises.map((exercise) => ({ ...exercise })) })));
+    setPlanDraft(weekPlan.map((day) => ({ ...day, category: day.category || suggestTrainingCategory(day.name, day.exercises.length > 0), exercises: day.exercises.map((exercise) => ({ ...exercise })) })));
+    setCategoryManual(Array(7).fill(false));
     setPlanEditorDay(dayIndex);
     setPlanEditorOpen(true);
   }
 
   function updateDraftDay(patch: Partial<PlanDay>) {
     setPlanDraft((current) => current.map((day, index) => index === planEditorDay ? { ...day, ...patch } : day));
+  }
+
+  function updateDraftName(name: string) {
+    const day = planDraft[planEditorDay];
+    updateDraftDay({ name, category: categoryManual[planEditorDay] ? day.category : suggestTrainingCategory(name, day.exercises.length > 0) });
+  }
+
+  function selectDraftCategory(category: TrainingCategory) {
+    setCategoryManual((current) => current.map((manual, index) => index === planEditorDay ? true : manual));
+    updateDraftDay({ category });
   }
 
   function updateDraftExercise(exerciseIndex: number, patch: Partial<Exercise>) {
@@ -226,16 +256,17 @@ export default function Home() {
 
       {tab === "training" && !workoutOpen && !planEditorOpen && planDetailIndex !== null && <div className="subpage">
         <header className="subpage-header"><button onClick={() => setPlanDetailIndex(null)} aria-label="返回本周训练">←</button><span>{weekPlan[planDetailIndex].day}计划</span><button onClick={() => openPlanEditor(planDetailIndex)} aria-label="编辑当天计划">编辑</button></header>
-        <section className="plan-detail-hero"><div><p className="eyebrow">{weekPlan[planDetailIndex].state === "今日" ? "TODAY" : "WEEKLY PLAN"}</p><h1>{weekPlan[planDetailIndex].name}</h1><p>{weekPlan[planDetailIndex].exercises.length ? `${weekPlan[planDetailIndex].exercises.length}个动作，点击下方开始即可追踪` : "今天安排恢复，让身体好好充电。"}</p></div><img src={planArt[planDetailIndex]} alt="" className="detail-mascot standalone-detail-mascot" /></section>
-        {weekPlan[planDetailIndex].exercises.length ? <div className="detail-exercises">{weekPlan[planDetailIndex].exercises.map((exercise, index) => <article key={exercise.id}><span>0{index + 1}</span><div><strong>{exercise.name}</strong><small>{exercise.sets}组 × {exercise.reps}次 · {exercise.weight}</small></div></article>)}<button className="primary-action detail-start" onClick={() => beginWorkout(planDetailIndex)}>开始这次训练 <span>→</span></button></div> : <div className="rest-day-card"><img src={planArt[planDetailIndex]} alt="" className="rest-mascot standalone-detail-mascot" /><strong>恢复也是计划的一部分</strong><p>散步、拉伸或完全休息都可以。</p></div>}
+        <section className="plan-detail-hero"><div><p className="eyebrow">{weekPlan[planDetailIndex].state === "今日" ? "TODAY" : "WEEKLY PLAN"}</p><h1>{weekPlan[planDetailIndex].name}</h1><p>{weekPlan[planDetailIndex].exercises.length ? `${weekPlan[planDetailIndex].exercises.length}个动作，点击下方开始即可追踪` : "今天安排恢复，让身体好好充电。"}</p></div><img src={getPlanArt(weekPlan[planDetailIndex])} alt="" className="detail-mascot standalone-detail-mascot" /></section>
+        {weekPlan[planDetailIndex].exercises.length ? <div className="detail-exercises">{weekPlan[planDetailIndex].exercises.map((exercise, index) => <article key={exercise.id}><span>0{index + 1}</span><div><strong>{exercise.name}</strong><small>{exercise.sets}组 × {exercise.reps}次 · {exercise.weight}</small></div></article>)}<button className="primary-action detail-start" onClick={() => beginWorkout(planDetailIndex)}>开始这次训练 <span>→</span></button></div> : <div className="rest-day-card"><img src={getPlanArt(weekPlan[planDetailIndex])} alt="" className="rest-mascot standalone-detail-mascot" /><strong>恢复也是计划的一部分</strong><p>散步、拉伸或完全休息都可以。</p></div>}
       </div>}
 
       {planEditorOpen && <div className="editor-screen">
         <header className="subpage-header"><button onClick={() => setPlanEditorOpen(false)} aria-label="关闭训练编辑">×</button><span>编辑每周训练</span><button onClick={() => { setWeekPlan(planDraft); setPlanEditorOpen(false); showToast("完整周计划已保存"); }} aria-label="保存训练计划">保存</button></header>
         <div className="editor-day-tabs">{planDraft.map((day, index) => <button className={planEditorDay === index ? "active" : ""} onClick={() => setPlanEditorDay(index)} key={day.day}><span>{day.short}</span><small>{day.exercises.length || "休"}</small></button>)}</div>
         <section className="day-editor">
-          <label className="field-label">计划名称<input value={planDraft[planEditorDay].name} onChange={(event) => updateDraftDay({ name: event.target.value })} /></label>
-          <div className="day-kind"><button className={planDraft[planEditorDay].exercises.length ? "active" : ""} onClick={() => { if (!planDraft[planEditorDay].exercises.length) updateDraftDay({ exercises: [{ id: Date.now(), name: "新动作", sets: 3, reps: 12, weight: "自重" }], state: planEditorDay === 4 ? "今日" : "待完成" }); }}>训练日</button><button className={!planDraft[planEditorDay].exercises.length ? "active" : ""} onClick={() => updateDraftDay({ exercises: [], state: "休息" })}>休息日</button></div>
+          <label className="field-label">计划名称<input value={planDraft[planEditorDay].name} onChange={(event) => updateDraftName(event.target.value)} /></label>
+          <section className="category-picker"><label>训练类型<select aria-label="训练类型" value={planDraft[planEditorDay].category} onChange={(event) => selectDraftCategory(event.target.value as TrainingCategory)}>{trainingCategoryOptions.map((option) => <option value={option.id} key={option.id}>{option.label}</option>)}</select></label><div className="category-preview"><img src={getPlanArt(planDraft[planEditorDay])} alt="当前训练类型配图" /><span>{categoryManual[planEditorDay] ? "已手动选择" : "根据名称自动推荐"}</span></div></section>
+          <div className="day-kind"><button className={planDraft[planEditorDay].exercises.length ? "active" : ""} onClick={() => { if (!planDraft[planEditorDay].exercises.length) { setCategoryManual((current) => current.map((manual, index) => index === planEditorDay ? false : manual)); updateDraftDay({ category: "full_body", exercises: [{ id: Date.now(), name: "新动作", sets: 3, reps: 12, weight: "自重" }], state: planEditorDay === 4 ? "今日" : "待完成" }); } }}>训练日</button><button className={!planDraft[planEditorDay].exercises.length ? "active" : ""} onClick={() => { setCategoryManual((current) => current.map((manual, index) => index === planEditorDay ? false : manual)); updateDraftDay({ category: "rest", exercises: [], state: "休息" }); }}>休息日</button></div>
           {planDraft[planEditorDay].exercises.map((exercise, exerciseIndex) => <article className="exercise-editor" key={exercise.id}><div className="editor-number">0{exerciseIndex + 1}</div><label>动作名称<input value={exercise.name} onChange={(event) => updateDraftExercise(exerciseIndex, { name: event.target.value })} /></label><div className="exercise-fields"><label>组数<input inputMode="numeric" value={exercise.sets} onChange={(event) => updateDraftExercise(exerciseIndex, { sets: Math.max(1, Number(event.target.value) || 1) })} /></label><label>次数<input inputMode="numeric" value={exercise.reps} onChange={(event) => updateDraftExercise(exerciseIndex, { reps: Math.max(1, Number(event.target.value) || 1) })} /></label><label>重量<input value={exercise.weight} onChange={(event) => updateDraftExercise(exerciseIndex, { weight: event.target.value })} /></label></div><button className="remove-exercise" onClick={() => updateDraftDay({ exercises: planDraft[planEditorDay].exercises.filter((_, index) => index !== exerciseIndex) })}>移除此动作</button></article>)}
           {planDraft[planEditorDay].exercises.length > 0 && <button className="add-exercise" onClick={() => updateDraftDay({ exercises: [...planDraft[planEditorDay].exercises, { id: Date.now(), name: "新动作", sets: 3, reps: 12, weight: "自重" }] })}>＋ 添加训练动作</button>}
         </section>

@@ -39,6 +39,11 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(page, /function leaveWorkout\(\)[\s\S]*setTab\("today"\)/);
   assert.match(page, /onClick=\{\(\) => openPlanEditor\(4\)\}/);
   assert.match(page, /setWeekPlan\(planDraft\)/);
+  assert.match(page, /type TrainingCategory/);
+  assert.match(page, /function suggestTrainingCategory/);
+  assert.match(page, /aria-label="训练类型"/);
+  assert.match(page, /根据名称自动推荐/);
+  assert.match(page, /已手动选择/);
   assert.match(page, /结果不是实际模型计算/);
   assert.match(page, /className="food-entry-screen"/);
   assert.match(css, /\.mascot-sprite[^}]*aspect-ratio:1/);
