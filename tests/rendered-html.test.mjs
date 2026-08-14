@@ -46,6 +46,7 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(css, /Strict black and white: no gray or color fills/);
   assert.match(page, /rabbit-actions-hd\.png/);
   assert.match(page, /rabbit-food-hd\.png/);
+  assert.match(page, /rabbit-meals-closeup\.png/);
   assert.match(page, /rabbit-stamp\.png/);
   assert.match(page, /className="workout-scroll"/);
   assert.match(page, /scrollTop > 36/);
@@ -55,4 +56,5 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(css, /\.sprite-art[^}]*transform:scale\(\.78\)/);
   assert.match(css, /\.hero-mascot \.sprite-art\{transform:translateX\(-12px\) scale\(1\)\}/);
   assert.match(css, /\.meal-card\{padding:8px 7px 10px;border:1\.5px solid #000;background:#fff\}/);
+  assert.match(css, /\.meal-art \.sprite-art,\.food-thumb-art \.sprite-art\{transform:scale\(\.96\)\}/);
 });

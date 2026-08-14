@@ -202,6 +202,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .sprite-art{position:absolute;inset:0;display:block;background-repeat:no-repeat;transform:scale(.78);transform-origin:center center}
 .hero-mascot .sprite-art{transform:translateX(-12px) scale(1)}
 .meal-card{padding:8px 7px 10px;border:1.5px solid #000;background:#fff}
+.meal-art .sprite-art,.food-thumb-art .sprite-art{transform:scale(.96)}
 .meal-photo,.food-thumb-art{border:0}
 .calendar-stamp{width:88%;height:88%;display:block;object-fit:contain;mix-blend-mode:multiply}
 .month-stamp{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);display:block;object-fit:contain;mix-blend-mode:multiply}

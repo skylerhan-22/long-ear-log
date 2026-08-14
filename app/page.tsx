@@ -37,7 +37,7 @@ const initialWeekPlan: PlanDay[] = [
 ];
 
 const mealArt: Record<string, { col: number; row: number }> = {
-  早餐: { col: 1, row: 0 }, 午餐: { col: 0, row: 0 }, 晚餐: { col: 0, row: 1 }, 零食: { col: 0, row: 2 },
+  早餐: { col: 0, row: 0 }, 午餐: { col: 1, row: 0 }, 晚餐: { col: 0, row: 1 }, 零食: { col: 1, row: 1 },
 };
 
 function formatTime(total: number) {
@@ -45,14 +45,14 @@ function formatTime(total: number) {
 }
 
 function Sprite({ sheet, col = 0, row = 0, rows = 3, className = "" }: { sheet: string; col?: number; row?: number; rows?: number; className?: string }) {
-  const y = rows === 3 ? [0, 50, 100][row] : [0, 33.333, 66.666, 100][row];
-  const source = sheet === "food" ? "/rabbit-food-hd.png" : "/rabbit-actions-hd.png";
+  const y = rows === 3 ? [0, 50, 100][row] : rows === 2 ? [0, 100][row] : [0, 33.333, 66.666, 100][row];
+  const source = sheet === "meals" ? "/rabbit-meals-closeup.png" : sheet === "food" ? "/rabbit-food-hd.png" : "/rabbit-actions-hd.png";
   return <div className={`mascot-sprite ${className}`} aria-hidden="true"><span className="sprite-art" style={{ backgroundImage: `url('${source}')`, backgroundSize: `200% ${rows * 100}%`, backgroundPosition: `${col * 100}% ${y}%` }} /></div>;
 }
 
 function MealVisual({ type, className = "" }: { type: string; className?: string }) {
   const art = mealArt[type] || mealArt.早餐;
-  return <Sprite sheet="food" col={art.col} row={art.row} className={className} />;
+  return <Sprite sheet="meals" col={art.col} row={art.row} rows={2} className={className} />;
 }
 
 export default function Home() {
