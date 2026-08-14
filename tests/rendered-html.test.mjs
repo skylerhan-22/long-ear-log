@@ -58,4 +58,6 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(css, /\.hero-mascot \.sprite-art\{transform:translateX\(-12px\) scale\(1\)\}/);
   assert.match(css, /\.meal-card\{padding:8px 7px 10px;border:1\.5px solid #000;background:#fff\}/);
   assert.match(css, /\.meal-art \.sprite-art,\.food-thumb-art \.sprite-art\{transform:scale\(\.96\)\}/);
+  assert.match(page, /"mask-lower-cell"/);
+  assert.match(css, /\.detail-mascot\.mask-lower-cell::after/);
 });
