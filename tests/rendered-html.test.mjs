@@ -53,5 +53,5 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(css, /\.workout-clock\.compact[^}]*max-height:72px/);
   assert.match(page, /className="sprite-art"/);
   assert.match(css, /\.sprite-art[^}]*transform:scale\(\.78\)/);
-  assert.match(css, /\.hero-mascot \.sprite-art\{transform:scale\(\.96\)\}/);
+  assert.match(css, /\.hero-mascot \.sprite-art\{transform:translateX\(-12px\) scale\(\.96\)\}/);
 });
