@@ -196,3 +196,33 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .mascot-sprite{filter:grayscale(1) contrast(100);mix-blend-mode:multiply}
 .muted,.eyebrow,.kicker,.tap-hint,.plan-detail-hero p:last-child,.calendar-story p,.month-summary p,
 .entry-intro p:last-child,.ai-panel p,.food-row small,.plan-copy small{color:#000}
+
+/* High-resolution rabbit art and the expanding workout clock */
+.mascot-sprite{background-color:#fff;filter:none;mix-blend-mode:normal}
+.meal-photo,.food-thumb-art{border:0}
+.calendar-stamp{width:88%;height:88%;display:block;object-fit:contain;mix-blend-mode:multiply}
+.month-stamp{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);display:block;object-fit:contain;mix-blend-mode:multiply}
+
+.workout-screen{padding:0;background:#fff}
+.workout-scroll{min-height:0;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.workout-scroll::-webkit-scrollbar{display:none}
+.workout-clock{position:sticky;top:0;z-index:8;min-height:45vh;max-height:390px;display:grid;grid-template-columns:54px 1fr 86px;align-items:start;padding:18px;border-bottom:2px solid #000;background:#fff;transition:min-height .24s ease,max-height .24s ease,padding .24s ease}
+.clock-back,.clock-toggle{border:0;background:transparent;color:#000;font-weight:900}
+.clock-back{font-size:22px;text-align:left}
+.clock-toggle{align-self:center;min-height:44px;border:2px solid #000;background:#000;color:#fff}
+.clock-display{align-self:center;display:grid;place-items:center;gap:10px;text-align:center}
+.clock-display span{font-size:10px;font-weight:900;letter-spacing:.14em}
+.clock-display strong{font-size:64px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.05em}
+.clock-display small{font-size:9px;font-weight:700}
+.workout-clock.compact{min-height:72px;max-height:72px;padding:10px 18px;align-items:center;grid-template-columns:70px 1fr 70px}
+.workout-clock.compact .clock-display{gap:1px}
+.workout-clock.compact .clock-display strong{font-size:22px;letter-spacing:0}
+.workout-clock.compact .clock-display span{font-size:7px}
+.workout-clock.compact .clock-display small{display:none}
+.workout-clock.compact .clock-toggle{min-height:32px;border:0;background:transparent;color:#000;font-size:10px;text-align:right}
+.workout-body{padding:0 18px 24px}
+.workout-title{padding-top:22px}
+.exercise-list{min-height:auto;display:grid;gap:10px;overflow:visible;flex:none;padding-bottom:20px}
+.workout-controls{width:100%;margin:0;padding:15px 18px 22px}
+
+@media(max-width:480px){.workout-clock{min-height:46vh;max-height:none}}

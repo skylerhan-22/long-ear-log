@@ -37,7 +37,7 @@ const initialWeekPlan: PlanDay[] = [
 ];
 
 const mealArt: Record<string, { col: number; row: number }> = {
-  早餐: { col: 0, row: 2 }, 午餐: { col: 1, row: 0 }, 晚餐: { col: 0, row: 1 }, 零食: { col: 1, row: 2 },
+  早餐: { col: 1, row: 0 }, 午餐: { col: 0, row: 0 }, 晚餐: { col: 0, row: 1 }, 零食: { col: 0, row: 2 },
 };
 
 function formatTime(total: number) {
@@ -46,7 +46,8 @@ function formatTime(total: number) {
 
 function Sprite({ sheet, col = 0, row = 0, rows = 3, className = "" }: { sheet: string; col?: number; row?: number; rows?: number; className?: string }) {
   const y = rows === 3 ? [0, 50, 100][row] : [0, 33.333, 66.666, 100][row];
-  return <div className={`mascot-sprite ${className}`} style={{ backgroundImage: `url('/mascot-${sheet}.png')`, backgroundSize: `200% ${rows * 100}%`, backgroundPosition: `${col * 100}% ${y}%` }} aria-hidden="true" />;
+  const source = sheet === "food" ? "/rabbit-food-hd.png" : "/rabbit-actions-hd.png";
+  return <div className={`mascot-sprite ${className}`} style={{ backgroundImage: `url('${source}')`, backgroundSize: `200% ${rows * 100}%`, backgroundPosition: `${col * 100}% ${y}%` }} aria-hidden="true" />;
 }
 
 function MealVisual({ type, className = "" }: { type: string; className?: string }) {
@@ -64,6 +65,7 @@ export default function Home() {
   const [workoutOpen, setWorkoutOpen] = useState(false);
   const [activeWorkoutDay, setActiveWorkoutDay] = useState(4);
   const [workoutRunning, setWorkoutRunning] = useState(false);
+  const [workoutCompact, setWorkoutCompact] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [rest, setRest] = useState(0);
   const [doneSets, setDoneSets] = useState<boolean[]>(Array(15).fill(false));
@@ -126,6 +128,7 @@ export default function Home() {
     }
     setActiveWorkoutDay(dayIndex);
     setWorkoutRunning(false);
+    setWorkoutCompact(false);
     setWorkoutOpen(true);
     setPlanDetailIndex(null);
   }
@@ -229,15 +232,23 @@ export default function Home() {
       </div>}
 
       {workoutOpen && <div className="workout-screen">
-        <header className="workout-header"><button onClick={leaveWorkout} aria-label="返回今日">←</button><div><span>训练时间</span><strong>{formatTime(elapsed)}</strong></div><button onClick={() => setWorkoutRunning((value) => !value)}>{workoutRunning ? "暂停" : elapsed > 0 ? "继续" : "开始计时"}</button></header>
-        <div className="workout-title"><div><p className="eyebrow">{activePlan.day} · SESSION</p><h1>{activePlan.name}</h1></div><span>{completed}/{activeSetCount} 组</span></div>
-        <div className="exercise-list">{activePlan.exercises.map((exercise, exerciseIndex) => {
-          const start = activePlan.exercises.slice(0, exerciseIndex).reduce((sum, item) => sum + item.sets, 0);
-          return <article className="exercise-card" key={exercise.id}><div className="exercise-heading"><div><span>0{exerciseIndex + 1}</span><div><strong>{exercise.name}</strong><small>{exercise.sets}组 × {exercise.reps}次 · {exercise.weight}</small></div></div></div><div className="set-row">{Array.from({ length: exercise.sets }).map((_, setIndex) => {
-            const index = start + setIndex;
-            return <button aria-label={`${exercise.name}第${setIndex + 1}组${doneSets[index] ? "已完成" : "未完成"}`} className={doneSets[index] ? "done" : ""} onClick={() => setDoneSets((old) => old.map((value, itemIndex) => itemIndex === index ? !value : value))} key={setIndex}>{doneSets[index] ? "✓" : setIndex + 1}</button>;
-          })}</div></article>;
-        })}</div>
+        <div className="workout-scroll" onScroll={(event) => setWorkoutCompact(event.currentTarget.scrollTop > 36)}>
+          <header className={`workout-clock ${workoutCompact ? "compact" : ""}`}>
+            <button className="clock-back" onClick={leaveWorkout} aria-label="返回今日">←</button>
+            <div className="clock-display"><span>训练时间</span><strong>{formatTime(elapsed)}</strong><small>{workoutCompact ? "" : "向上滑动查看训练项目"}</small></div>
+            <button className="clock-toggle" onClick={() => setWorkoutRunning((value) => !value)}>{workoutRunning ? "暂停" : elapsed > 0 ? "继续" : "开始计时"}</button>
+          </header>
+          <div className="workout-body">
+            <div className="workout-title"><div><p className="eyebrow">{activePlan.day} · SESSION</p><h1>{activePlan.name}</h1></div><span>{completed}/{activeSetCount} 组</span></div>
+            <div className="exercise-list">{activePlan.exercises.map((exercise, exerciseIndex) => {
+              const start = activePlan.exercises.slice(0, exerciseIndex).reduce((sum, item) => sum + item.sets, 0);
+              return <article className="exercise-card" key={exercise.id}><div className="exercise-heading"><div><span>0{exerciseIndex + 1}</span><div><strong>{exercise.name}</strong><small>{exercise.sets}组 × {exercise.reps}次 · {exercise.weight}</small></div></div></div><div className="set-row">{Array.from({ length: exercise.sets }).map((_, setIndex) => {
+                const index = start + setIndex;
+                return <button aria-label={`${exercise.name}第${setIndex + 1}组${doneSets[index] ? "已完成" : "未完成"}`} className={doneSets[index] ? "done" : ""} onClick={() => setDoneSets((old) => old.map((value, itemIndex) => itemIndex === index ? !value : value))} key={setIndex}>{doneSets[index] ? "✓" : setIndex + 1}</button>;
+              })}</div></article>;
+            })}</div>
+          </div>
+        </div>
         <div className="workout-controls"><button className={rest ? "resting" : ""} onClick={() => setRest(rest ? 0 : 60)}><span>{rest ? formatTime(rest) : "01:00"}</span><small>{rest ? "点击取消" : "开始组间休息"}</small></button><button className={`finish-button ${allSetsDone ? "ready" : ""}`} onClick={finishWorkout} disabled={!allSetsDone}>完成训练</button></div>
       </div>}
 
@@ -246,8 +257,8 @@ export default function Home() {
         <div className="segmented">{(["day", "week", "month"] as const).map((view) => <button className={foodView === view ? "active" : ""} onClick={() => setFoodView(view)} key={view}>{view === "day" ? "日" : view === "week" ? "周" : "月"}</button>)}</div>
         <section className="nutrition-card comic-card"><div><span className="kicker">今日已记录</span><strong>{totalCalories.toLocaleString()}<small> kcal</small></strong></div><div className="macro-row"><span>P <b>{macros.protein}g</b></span><span>C <b>{macros.carbs}g</b></span><span>F <b>{macros.fat}g</b></span></div></section>
         {foodView === "day" && <div className="meal-list">{meals.map((meal) => <article className="food-row" key={meal.id}><MealVisual type={meal.type} className="food-thumb-art" /><div><strong>{meal.type}</strong><small>P {meal.protein || 0} · C {meal.carbs || 0} · F {meal.fat || 0}</small></div><b>{meal.calories} kcal</b></article>)}</div>}
-        {foodView === "week" && <div className="food-week"><div className="week-labels">{["一", "二", "三", "四", "五", "六", "日"].map((day, index) => <span className={index === 4 ? "selected" : ""} key={day}>{day}</span>)}</div><div className="illustrated-calendar">{Array.from({ length: 14 }).map((_, index) => <button onClick={() => setFoodView("day")} className={index % 3 === 0 || index === 8 ? "has-food" : ""} key={index}>{index % 3 === 0 || index === 8 ? <MealVisual type={["早餐", "午餐", "晚餐", "零食"][index % 4]} className="calendar-art" /> : <span>+</span>}</button>)}</div><div className="calendar-story"><Sprite sheet="food" col={1} row={2} className="calendar-mascot" /><p><strong>周五 · 3条记录</strong>照片和营养数据一起回顾。</p></div></div>}
-        {foodView === "month" && <div className="month-view"><div className="month-title"><button onClick={() => setMonthOffset((value) => value - 1)} aria-label="上个月">‹</button><strong>{shownMonth}</strong><button onClick={() => setMonthOffset((value) => value + 1)} aria-label="下个月">›</button></div><div className="month-grid">{Array.from({ length: 35 }).map((_, index) => <button onClick={() => setFoodView("day")} className={index < 4 ? "muted" : index === 17 ? "today" : index % 4 === 0 ? "logged" : ""} key={index}><span>{index < 4 ? 28 + index : index - 3}</span>{index % 4 === 0 && index >= 4 ? <MealVisual type={["早餐", "午餐", "晚餐"][index % 3]} className="month-art" /> : null}</button>)}</div><div className="month-summary"><Sprite sheet="food" col={0} row={2} className="month-mascot" /><p><strong>本月记录 18 天</strong>不是为了满分，只是帮你看见习惯。</p></div></div>}
+        {foodView === "week" && <div className="food-week"><div className="week-labels">{["一", "二", "三", "四", "五", "六", "日"].map((day, index) => <span className={index === 4 ? "selected" : ""} key={day}>{day}</span>)}</div><div className="illustrated-calendar">{Array.from({ length: 14 }).map((_, index) => <button onClick={() => setFoodView("day")} className={index % 3 === 0 || index === 8 ? "has-food" : ""} key={index}>{index % 3 === 0 || index === 8 ? <img src="/rabbit-stamp.png" alt="已完成记录" className="calendar-stamp" /> : <span>+</span>}</button>)}</div><div className="calendar-story"><Sprite sheet="food" col={1} row={2} className="calendar-mascot" /><p><strong>周五 · 3条记录</strong>照片和营养数据一起回顾。</p></div></div>}
+        {foodView === "month" && <div className="month-view"><div className="month-title"><button onClick={() => setMonthOffset((value) => value - 1)} aria-label="上个月">‹</button><strong>{shownMonth}</strong><button onClick={() => setMonthOffset((value) => value + 1)} aria-label="下个月">›</button></div><div className="month-grid">{Array.from({ length: 35 }).map((_, index) => <button onClick={() => setFoodView("day")} className={index < 4 ? "muted" : index === 17 ? "today" : index % 4 === 0 ? "logged" : ""} key={index}><span>{index < 4 ? 28 + index : index - 3}</span>{index % 4 === 0 && index >= 4 ? <img src="/rabbit-stamp.png" alt="已完成记录" className="month-stamp" /> : null}</button>)}</div><div className="month-summary"><Sprite sheet="food" col={0} row={2} className="month-mascot" /><p><strong>本月记录 18 天</strong>不是为了满分，只是帮你看见习惯。</p></div></div>}
       </div>}
 
       {foodEntryOpen && <div className="food-entry-screen">
