@@ -70,6 +70,9 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(page, /rabbit-walk\.png/);
   assert.match(page, /rabbit-full-body\.png/);
   assert.match(page, /rabbit-rest\.png/);
+  assert.match(page, /weekCompleted === 0 \? "\/rabbit-week-start\.png"/);
+  assert.match(page, /weekCompleted >= 4 \? "\/rabbit-week-complete\.png"/);
+  assert.match(page, /"\/rabbit-week-progress\.png"/);
   assert.match(css, /\.standalone-detail-mascot\{display:block;object-fit:contain\}/);
   assert.match(css, /\.detail-mascot \.sprite-art\{transform:scale\(\.9\)\}/);
 });

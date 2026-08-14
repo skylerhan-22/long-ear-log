@@ -122,6 +122,8 @@ export default function Home() {
 
   const todayPlan = weekPlan[4];
   const activePlan = weekPlan[activeWorkoutDay];
+  const weekCompleted = weekPlan.filter((day) => day.state === "已完成").length;
+  const weekProgressArt = weekCompleted === 0 ? "/rabbit-week-start.png" : weekCompleted >= 4 ? "/rabbit-week-complete.png" : "/rabbit-week-progress.png";
   const activeSetCount = activePlan.exercises.reduce((sum, exercise) => sum + exercise.sets, 0);
   const completed = doneSets.filter(Boolean).length;
   const allSetsDone = activeSetCount > 0 && completed === activeSetCount;
@@ -249,7 +251,7 @@ export default function Home() {
 
       {tab === "training" && !workoutOpen && !planEditorOpen && planDetailIndex === null && <div className="page-view">
         <header className="page-header"><div><p className="eyebrow">WEEK 33</p><h1>本周训练</h1></div><button className="square-button" onClick={() => openPlanEditor(4)} aria-label="编辑训练计划">✎</button></header>
-        <div className="week-summary comic-card"><div><strong>{weekPlan.filter((day) => day.state === "已完成").length}/4</strong><span>本周完成</span></div><Sprite sheet="training" col={1} row={2} className="week-mascot" /></div>
+        <div className="week-summary comic-card"><div><strong>{weekCompleted}/4</strong><span>本周完成</span></div><img src={weekProgressArt} alt="" className="week-mascot" /></div>
         <p className="tap-hint">周一到周日都可以查看；编辑时可修改动作、组数、次数和重量。</p>
         <div className="plan-list">{weekPlan.map((item, index) => <button className={`plan-row ${item.state === "今日" ? "current" : ""}`} key={item.day} onClick={() => setPlanDetailIndex(index)}><span className="day-label">{item.short}</span><span className="plan-copy"><strong>{item.day} · {item.name}</strong><small>{item.exercises.length ? `${item.exercises.length}个动作 · ${item.exercises.reduce((sum, exercise) => sum + exercise.sets, 0)}组` : "恢复与休息"}</small></span><em>{item.state === "今日" ? "今天 ›" : `${item.state} ›`}</em></button>)}</div>
       </div>}

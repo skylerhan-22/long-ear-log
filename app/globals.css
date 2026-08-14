@@ -111,7 +111,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 
 /* Week plan and detail */
 .week-summary{min-height:120px;justify-content:space-between;overflow:hidden;background:#e5d7bd}
-.week-mascot{width:118px;height:118px;margin:-15px 2px -16px auto}
+.week-mascot{width:138px;height:138px;margin:-8px 0 -8px auto;object-fit:contain}
 .tap-hint{margin:-2px 0 14px;padding:9px 10px;border:1px dashed var(--ink);background:#e9dfcf;color:var(--muted);font-size:9px;line-height:1.5}
 .plan-list{border-top:1.5px solid var(--ink)}
 .plan-row{grid-template-columns:38px 1fr auto;padding:9px 6px;border-color:var(--line);border-left:4px solid transparent}
