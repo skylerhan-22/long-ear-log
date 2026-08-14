@@ -44,10 +44,10 @@ function formatTime(total: number) {
   return `${Math.floor(total / 60).toString().padStart(2, "0")}:${(total % 60).toString().padStart(2, "0")}`;
 }
 
-function Sprite({ sheet, col = 0, row = 0, rows = 3, className = "" }: { sheet: string; col?: number; row?: number; rows?: number; className?: string }) {
+function Sprite({ sheet, col = 0, row = 0, rows = 3, positionY, className = "" }: { sheet: string; col?: number; row?: number; rows?: number; positionY?: number; className?: string }) {
   const y = rows === 3 ? [0, 50, 100][row] : rows === 2 ? [0, 100][row] : [0, 33.333, 66.666, 100][row];
   const source = sheet === "meals" ? "/rabbit-meals-closeup.png" : sheet === "food" ? "/rabbit-food-hd.png" : "/rabbit-actions-hd.png";
-  return <div className={`mascot-sprite ${className}`} aria-hidden="true"><span className="sprite-art" style={{ backgroundImage: `url('${source}')`, backgroundSize: `200% ${rows * 100}%`, backgroundPosition: `${col * 100}% ${y}%` }} /></div>;
+  return <div className={`mascot-sprite ${className}`} aria-hidden="true"><span className="sprite-art" style={{ backgroundImage: `url('${source}')`, backgroundSize: `200% ${rows * 100}%`, backgroundPosition: `${col * 100}% ${positionY ?? y}%` }} /></div>;
 }
 
 function MealVisual({ type, className = "" }: { type: string; className?: string }) {
@@ -199,7 +199,7 @@ export default function Home() {
     <main className="app-shell"><section className="phone-frame">
       {tab === "today" && !workoutOpen && !foodEntryOpen && <div className="page-view">
         <header className="topbar"><div><p className="eyebrow">8月14日 · 星期五</p><h1>早上好，Mia</h1></div><button className="avatar" onClick={() => setTab("profile")} aria-label="打开个人资料">◌</button></header>
-        <section className="hero-panel"><div><span className="chapter">今日 · CHAPTER 04</span><h2>{workoutDone ? "训练完成，记上一笔。" : "今天，动一点就好。"}</h2><p>本周已完成 {workoutDone ? 3 : 2} / 4 次训练</p></div><Sprite sheet="today" col={0} row={0} className="hero-mascot" /></section>
+        <section className="hero-panel"><div><span className="chapter">今日 · CHAPTER 04</span><h2>{workoutDone ? "训练完成，记上一笔。" : "今天，动一点就好。"}</h2><p>本周已完成 {workoutDone ? 3 : 2} / 4 次训练</p></div><Sprite sheet="today" col={0} row={workoutDone ? 2 : 0} positionY={workoutDone ? 96 : undefined} className="hero-mascot" /></section>
         <section className="workout-card comic-card"><div className="card-heading"><div><span className="kicker">今日训练</span><h3>{todayPlan.name}</h3><p>{todayPlan.exercises.length}个动作 · {todayPlan.exercises.reduce((sum, exercise) => sum + exercise.sets, 0)}组 · 约45分钟</p></div><span className="status-stamp">{workoutDone ? "DONE" : "TODAY"}</span></div><div className="progress"><span style={{ width: workoutDone ? "100%" : `${Math.max(8, completed / Math.max(1, activeSetCount) * 100)}%` }} /></div><button className="primary-action" onClick={workoutDone ? () => { setTab("training"); setPlanDetailIndex(4); } : () => beginWorkout(4)}>{workoutDone ? "查看训练总结" : completed ? "继续今日训练" : "开始训练"}<span>→</span></button></section>
         <section className="food-section"><div className="section-title"><div><span className="kicker">今日饮食</span><h3>{totalCalories.toLocaleString()} kcal</h3></div><button className="text-action" onClick={() => openFoodEntry()}>+记录饮食</button></div><div className="meal-grid">{["早餐", "午餐", "晚餐", "零食"].map((type) => {
           const entries = meals.filter((meal) => meal.type === type);

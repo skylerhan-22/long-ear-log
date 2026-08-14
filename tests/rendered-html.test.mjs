@@ -47,7 +47,7 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(page, /rabbit-actions-hd\.png/);
   assert.match(page, /rabbit-food-hd\.png/);
   assert.match(page, /rabbit-meals-closeup\.png/);
-  assert.match(page, /<Sprite sheet="today" col=\{0\} row=\{0\} className="hero-mascot"/);
+  assert.match(page, /row=\{workoutDone \? 2 : 0\} positionY=\{workoutDone \? 96 : undefined\} className="hero-mascot"/);
   assert.match(page, /rabbit-stamp\.png/);
   assert.match(page, /className="workout-scroll"/);
   assert.match(page, /scrollTop > 36/);
