@@ -133,6 +133,15 @@ export default function Home() {
   const macros = useMemo(() => meals.reduce((sum, meal) => ({
     protein: sum.protein + (meal.protein || 0), carbs: sum.carbs + (meal.carbs || 0), fat: sum.fat + (meal.fat || 0),
   }), { protein: 0, carbs: 0, fat: 0 }), [meals]);
+  const weekFoodRecords: { day: string; calories: number; mealTypes: string[] }[] = [
+    { day: "周一", calories: 1380, mealTypes: ["早餐", "午餐", "晚餐"] },
+    { day: "周二", calories: 0, mealTypes: [] },
+    { day: "周三", calories: 980, mealTypes: ["早餐", "晚餐"] },
+    { day: "周四", calories: 0, mealTypes: [] },
+    { day: "周五", calories: totalCalories, mealTypes: [...new Set(meals.map((meal) => meal.type))] },
+    { day: "周六", calories: 0, mealTypes: [] },
+    { day: "周日", calories: 1120, mealTypes: ["早餐", "午餐", "晚餐", "零食"] },
+  ];
 
   useEffect(() => { if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => undefined); }, []);
   useEffect(() => {
@@ -302,7 +311,7 @@ export default function Home() {
         <div className="segmented">{(["day", "week", "month"] as const).map((view) => <button className={foodView === view ? "active" : ""} onClick={() => setFoodView(view)} key={view}>{view === "day" ? "日" : view === "week" ? "周" : "月"}</button>)}</div>
         <section className="nutrition-card comic-card"><div><span className="kicker">今日已记录</span><strong>{totalCalories.toLocaleString()}<small> kcal</small></strong></div><div className="macro-row"><span>P <b>{macros.protein}g</b></span><span>C <b>{macros.carbs}g</b></span><span>F <b>{macros.fat}g</b></span></div></section>
         {foodView === "day" && <div className="meal-list">{meals.map((meal) => <article className="food-row" key={meal.id}><MealVisual type={meal.type} className="food-thumb-art" /><div><strong>{meal.type}</strong><small>P {meal.protein || 0} · C {meal.carbs || 0} · F {meal.fat || 0}</small></div><b>{meal.calories} kcal</b></article>)}</div>}
-        {foodView === "week" && <div className="food-week"><div className="week-labels">{["一", "二", "三", "四", "五", "六", "日"].map((day, index) => <span className={index === 4 ? "selected" : ""} key={day}>{day}</span>)}</div><div className="illustrated-calendar">{Array.from({ length: 14 }).map((_, index) => <button onClick={() => setFoodView("day")} className={index % 3 === 0 || index === 8 ? "has-food" : ""} key={index}>{index % 3 === 0 || index === 8 ? <img src="/rabbit-stamp.png" alt="已完成记录" className="calendar-stamp" /> : <span>+</span>}</button>)}</div><div className="calendar-story"><Sprite sheet="food" col={1} row={2} className="calendar-mascot" /><p><strong>周五 · 3条记录</strong>照片和营养数据一起回顾。</p></div></div>}
+        {foodView === "week" && <div className="food-week-list"><div className="week-list-head"><span>本周</span><span>早　午　晚　零</span><span>总热量</span></div>{weekFoodRecords.map((record) => <article className="week-food-row" key={record.day}><div className="week-food-day">{record.mealTypes.length ? <img src="/rabbit-stamp.png" alt="当日已打卡" /> : <span>＋</span>}<strong>{record.day}</strong></div><div className="week-meal-status">{["早餐", "午餐", "晚餐", "零食"].map((type) => <span className={record.mealTypes.includes(type) ? "logged" : ""} aria-label={`${type}${record.mealTypes.includes(type) ? "已记录" : "未记录"}`} key={type}>{type.slice(0, 1)}</span>)}</div><div className="week-food-kcal"><strong>{record.calories ? record.calories.toLocaleString() : "—"}</strong><small>kcal</small></div></article>)}</div>}
         {foodView === "month" && <div className="month-view"><div className="month-title"><button onClick={() => setMonthOffset((value) => value - 1)} aria-label="上个月">‹</button><strong>{shownMonth}</strong><button onClick={() => setMonthOffset((value) => value + 1)} aria-label="下个月">›</button></div><div className="month-grid">{Array.from({ length: 35 }).map((_, index) => <button onClick={() => setFoodView("day")} className={index < 4 ? "muted" : index === 17 ? "today" : index % 4 === 0 ? "logged" : ""} key={index}><span>{index < 4 ? 28 + index : index - 3}</span>{index % 4 === 0 && index >= 4 ? <img src="/rabbit-stamp.png" alt="已完成记录" className="month-stamp" /> : null}</button>)}</div><div className="month-summary"><Sprite sheet="food" col={0} row={2} className="month-mascot" /><p><strong>本月记录 18 天</strong>不是为了满分，只是帮你看见习惯。</p></div></div>}
       </div>}
 

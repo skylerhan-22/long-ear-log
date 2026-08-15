@@ -208,6 +208,19 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .standalone-detail-mascot{display:block;object-fit:contain}
 .meal-photo,.food-thumb-art{border:0}
 .calendar-stamp{width:88%;height:88%;display:block;object-fit:contain;mix-blend-mode:multiply}
+.food-week-list{border:1.5px solid #000}
+.week-list-head,.week-food-row{display:grid;grid-template-columns:96px 1fr 70px;align-items:center}
+.week-list-head{min-height:34px;padding:0 10px;border-bottom:1.5px solid #000;font-size:9px;font-weight:900;letter-spacing:.08em}
+.week-list-head span:nth-child(2){text-align:center}.week-list-head span:last-child{text-align:right}
+.week-food-row{min-height:54px;padding:5px 10px;border-bottom:1px solid #000}
+.week-food-row:last-child{border-bottom:0}
+.week-food-day{display:flex;align-items:center;gap:8px}
+.week-food-day img,.week-food-day>span{width:32px;height:32px;display:grid;place-items:center;object-fit:contain;border:1px solid #000;border-radius:50%;font-weight:900}
+.week-food-day strong{font-size:11px}
+.week-meal-status{display:flex;justify-content:center;gap:5px}
+.week-meal-status span{width:25px;height:25px;display:grid;place-items:center;border:1px solid #000;border-radius:50%;font-size:9px;font-weight:900;background:#fff;color:#000}
+.week-meal-status span.logged{background:#000;color:#fff}
+.week-food-kcal{text-align:right}.week-food-kcal strong{display:block;font-size:13px}.week-food-kcal small{font-size:8px}
 .month-stamp{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);display:block;object-fit:contain;mix-blend-mode:multiply}
 
 .workout-screen{padding:0;background:#fff}

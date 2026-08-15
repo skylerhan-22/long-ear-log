@@ -54,6 +54,9 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(page, /rabbit-meals-closeup\.png/);
   assert.match(page, /row=\{workoutDone \? 2 : 0\} positionY=\{workoutDone \? 96 : undefined\} className="hero-mascot"/);
   assert.match(page, /rabbit-stamp\.png/);
+  assert.match(page, /weekFoodRecords\.map/);
+  assert.match(page, /className="week-food-row"/);
+  assert.match(page, /record\.mealTypes\.includes\(type\)/);
   assert.match(page, /className="workout-scroll"/);
   assert.match(page, /scrollTop > 36/);
   assert.match(css, /\.workout-clock[^}]*min-height:45vh/);
