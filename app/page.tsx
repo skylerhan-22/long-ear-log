@@ -122,8 +122,10 @@ export default function Home() {
 
   const todayPlan = weekPlan[4];
   const activePlan = weekPlan[activeWorkoutDay];
-  const weekCompleted = weekPlan.filter((day) => day.state === "已完成").length;
-  const weekProgressArt = weekCompleted === 0 ? "/rabbit-week-start.png" : weekCompleted >= 4 ? "/rabbit-week-complete.png" : "/rabbit-week-progress.png";
+  const weekTrainingCount = weekPlan.filter((day) => day.exercises.length > 0).length;
+  const weekCompleted = weekPlan.filter((day) => day.exercises.length > 0 && day.state === "已完成").length;
+  const weekIsComplete = weekTrainingCount > 0 && weekCompleted >= weekTrainingCount;
+  const weekProgressArt = weekCompleted === 0 ? "/rabbit-week-start.png" : weekIsComplete ? "/rabbit-week-complete.png" : "/rabbit-week-progress.png";
   const activeSetCount = activePlan.exercises.reduce((sum, exercise) => sum + exercise.sets, 0);
   const completed = doneSets.filter(Boolean).length;
   const allSetsDone = activeSetCount > 0 && completed === activeSetCount;
@@ -241,7 +243,7 @@ export default function Home() {
     <main className="app-shell"><section className="phone-frame">
       {tab === "today" && !workoutOpen && !foodEntryOpen && <div className="page-view">
         <header className="topbar"><div><p className="eyebrow">8月14日 · 星期五</p><h1>早上好，Mia</h1></div><button className="avatar" onClick={() => setTab("profile")} aria-label="打开个人资料">◌</button></header>
-        <section className="hero-panel"><div><span className="chapter">今日 · CHAPTER 04</span><h2>{workoutDone ? "训练完成，记上一笔。" : "今天，动一点就好。"}</h2><p>本周已完成 {workoutDone ? 3 : 2} / 4 次训练</p></div><Sprite sheet="today" col={0} row={workoutDone ? 2 : 0} positionY={workoutDone ? 96 : undefined} className="hero-mascot" /></section>
+        <section className="hero-panel"><div><span className="chapter">今日 · CHAPTER 04</span><h2>{workoutDone ? "训练完成，记上一笔。" : "今天，动一点就好。"}</h2><p>本周已完成 {weekCompleted} / {weekTrainingCount} 次训练</p></div><Sprite sheet="today" col={0} row={workoutDone ? 2 : 0} positionY={workoutDone ? 96 : undefined} className="hero-mascot" /></section>
         <section className="workout-card comic-card"><div className="card-heading"><div><span className="kicker">今日训练</span><h3>{todayPlan.name}</h3><p>{todayPlan.exercises.length}个动作 · {todayPlan.exercises.reduce((sum, exercise) => sum + exercise.sets, 0)}组 · 约45分钟</p></div><span className="status-stamp">{workoutDone ? "DONE" : "TODAY"}</span></div><div className="progress"><span style={{ width: workoutDone ? "100%" : `${Math.max(8, completed / Math.max(1, activeSetCount) * 100)}%` }} /></div><button className="primary-action" onClick={workoutDone ? () => { setTab("training"); setPlanDetailIndex(4); } : () => beginWorkout(4)}>{workoutDone ? "查看训练总结" : completed ? "继续今日训练" : "开始训练"}<span>→</span></button></section>
         <section className="food-section"><div className="section-title"><div><span className="kicker">今日饮食</span><h3>{totalCalories.toLocaleString()} kcal</h3></div><button className="text-action" onClick={() => openFoodEntry()}>+记录饮食</button></div><div className="meal-grid">{["早餐", "午餐", "晚餐", "零食"].map((type) => {
           const entries = meals.filter((meal) => meal.type === type);
@@ -251,7 +253,7 @@ export default function Home() {
 
       {tab === "training" && !workoutOpen && !planEditorOpen && planDetailIndex === null && <div className="page-view">
         <header className="page-header"><div><p className="eyebrow">WEEK 33</p><h1>本周训练</h1></div><button className="square-button" onClick={() => openPlanEditor(4)} aria-label="编辑训练计划">✎</button></header>
-        <div className="week-summary comic-card"><div><strong>{weekCompleted}/4</strong><span>本周完成</span></div><img src={weekProgressArt} alt="" className="week-mascot" /></div>
+        <div className="week-summary comic-card"><div><strong>{weekCompleted}/{weekTrainingCount}</strong><span>{weekTrainingCount ? "本周完成" : "尚未设置训练日"}</span></div><img src={weekProgressArt} alt="" className="week-mascot" /></div>
         <p className="tap-hint">周一到周日都可以查看；编辑时可修改动作、组数、次数和重量。</p>
         <div className="plan-list">{weekPlan.map((item, index) => <button className={`plan-row ${item.state === "今日" ? "current" : ""}`} key={item.day} onClick={() => setPlanDetailIndex(index)}><span className="day-label">{item.short}</span><span className="plan-copy"><strong>{item.day} · {item.name}</strong><small>{item.exercises.length ? `${item.exercises.length}个动作 · ${item.exercises.reduce((sum, exercise) => sum + exercise.sets, 0)}组` : "恢复与休息"}</small></span><em>{item.state === "今日" ? "今天 ›" : `${item.state} ›`}</em></button>)}</div>
       </div>}
@@ -321,7 +323,7 @@ export default function Home() {
       {tab === "profile" && <div className="page-view">
         <header className="page-header"><div><p className="eyebrow">PROFILE</p><h1>我的</h1></div><button className="square-button" onClick={() => setInfoModal({ title: "设置", body: "账号、隐私与数据设置将在正式版中集中管理。当前 Demo 的记录只保存在本设备。" })} aria-label="设置">⚙</button></header>
         <section className="profile-hero"><div><span className="kicker">训练日志者</span><h2>Mia</h2><p>目标：增肌与体能</p></div><Sprite sheet="today" col={1} row={0} className="profile-mascot" /></section>
-        <div className="body-stats"><article><strong>165</strong><span>cm</span><small>身高</small></article><article><strong>56.8</strong><span>kg</span><small>体重</small></article><article><strong>4</strong><span>次</span><small>周目标</small></article></div>
+        <div className="body-stats"><article><strong>165</strong><span>cm</span><small>身高</small></article><article><strong>56.8</strong><span>kg</span><small>体重</small></article><article><strong>{weekTrainingCount}</strong><span>次</span><small>周目标</small></article></div>
         <section className="profile-list"><button onClick={() => setInfoModal({ title: "健身目标", body: "当前目标：增肌与体能。正式版可在这里修改目标，但不会自动生成训练或饮食计划。" })}><span>◎</span><div><strong>健身目标</strong><small>增肌与体能</small></div><em>›</em></button><button onClick={() => setInfoModal({ title: "单位设置", body: "当前使用 kg、cm 和 kcal。Demo 已统一采用公制单位。" })}><span>⇄</span><div><strong>单位设置</strong><small>kg · cm · kcal</small></div><em>›</em></button><button onClick={() => { setNotificationsOn((value) => !value); showToast(notificationsOn ? "计时提醒已关闭" : "计时提醒已开启"); }}><span>◷</span><div><strong>计时提醒</strong><small>训练与组间通知</small></div><em>{notificationsOn ? "●" : "○"}</em></button><button onClick={() => showToast("离线模式已准备就绪")}><span>↓</span><div><strong>离线模式</strong><small>PWA 已准备就绪</small></div><em>✓</em></button></section><p className="privacy-note">记录用于帮你回顾，不是身体评分。</p>
       </div>}
 
