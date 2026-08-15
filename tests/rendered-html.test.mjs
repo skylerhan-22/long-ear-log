@@ -52,7 +52,8 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(page, /rabbit-actions-hd\.png/);
   assert.match(page, /rabbit-food-hd\.png/);
   assert.match(page, /rabbit-meals-closeup\.png/);
-  assert.match(page, /row=\{workoutDone \? 2 : 0\} positionY=\{workoutDone \? 96 : undefined\} className="hero-mascot"/);
+  assert.match(page, /workoutDone \? "\/rabbit-today-complete\.png" : "\/rabbit-today-wave\.png"/);
+  assert.match(page, /rabbit-profile-checklist\.png/);
   assert.match(page, /rabbit-stamp\.png/);
   assert.match(page, /weekFoodRecords\.map/);
   assert.match(page, /className="week-food-row"/);
@@ -63,7 +64,7 @@ test("keeps the reviewed workout, food, and monochrome rules in source", async (
   assert.match(css, /\.workout-clock\.compact[^}]*max-height:72px/);
   assert.match(page, /className="sprite-art"/);
   assert.match(css, /\.sprite-art[^}]*transform:scale\(\.78\)/);
-  assert.match(css, /\.hero-mascot \.sprite-art\{transform:translateX\(-12px\) scale\(1\)\}/);
+  assert.match(css, /\.hero-mascot \{[^}]*object-fit:contain/);
   assert.match(css, /\.meal-card\{padding:8px 7px 10px;border:1\.5px solid #000;background:#fff\}/);
   assert.match(css, /\.meal-art \.sprite-art,\.food-thumb-art \.sprite-art\{transform:scale\(\.96\)\}/);
   assert.match(page, /rabbit-squat-standalone\.png/);

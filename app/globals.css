@@ -18,7 +18,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .hero-panel h2 { margin:14px 0 8px; max-width:220px; font-size:23px; line-height:1.15; }
 .hero-panel p { margin:0; font-size:11px; color:var(--muted); }
 .mascot-sprite { aspect-ratio:1; background-repeat:no-repeat; background-color:transparent; background-blend-mode:multiply; mix-blend-mode:multiply; flex:none; }
-.hero-mascot { width:128px; height:128px; align-self:end; transform:translate(10px,8px); }
+.hero-mascot { width:128px; height:128px; align-self:end; display:block; object-fit:contain; transform:translate(10px,8px); }
 .comic-card { background:var(--card); border:2px solid var(--ink); box-shadow:4px 5px 0 var(--deep); }
 .workout-card { padding:18px; transform:rotate(-.25deg); }
 .card-heading h3,.section-title h3 { margin:2px 0 5px; font-size:21px; }
@@ -74,7 +74,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 
 /* Profile */
 .profile-hero { min-height:175px; display:flex; align-items:center; gap:18px; padding:14px 18px; margin-bottom:14px; background:var(--beige); border:2px solid var(--ink); border-radius:18px 50% 16px 45%/16px 20px 18px 24px; overflow:hidden; }
-.profile-mascot { width:136px; height:136px; margin-left:-5px; } .profile-hero h2 { margin:4px 0; font-size:27px; } .profile-hero p { margin:0; font-size:10px; color:var(--muted); }
+.profile-mascot { width:136px; height:136px; display:block; object-fit:contain; margin-left:-5px; } .profile-hero h2 { margin:4px 0; font-size:27px; } .profile-hero p { margin:0; font-size:10px; color:var(--muted); }
 .body-stats { display:grid; grid-template-columns:repeat(3,1fr); border:2px solid var(--ink); background:white; } .body-stats article { min-height:88px; display:flex; align-items:baseline; justify-content:center; padding-top:19px; position:relative; border-right:1.5px solid var(--ink); } .body-stats article:last-child{border:0}.body-stats strong{font-size:21px}.body-stats span{font-size:9px;margin-left:3px}.body-stats small{position:absolute;bottom:13px;font-size:9px;color:var(--muted)}
 .profile-list { margin-top:20px; border-top:2px solid var(--ink); } .profile-list button { width:100%; min-height:64px; padding:8px 2px; display:grid; grid-template-columns:34px 1fr auto; align-items:center; text-align:left; border:0; border-bottom:1.5px solid var(--ink); background:transparent; } .profile-list button>span { font-size:20px; } .profile-list div { display:grid; gap:4px; } .profile-list strong { font-size:13px; } .profile-list small { color:var(--muted); font-size:9px; } .profile-list em { font-style:normal; }
 .privacy-note { margin:18px 0 0; padding:10px; text-align:center; font-size:9px; color:var(--muted); border:1px dashed var(--muted); }
@@ -201,7 +201,6 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 /* High-resolution rabbit art and the expanding workout clock */
 .mascot-sprite{position:relative;overflow:hidden;background-color:#fff;filter:none;mix-blend-mode:normal}
 .sprite-art{position:absolute;inset:0;display:block;background-repeat:no-repeat;transform:scale(.78);transform-origin:center center}
-.hero-mascot .sprite-art{transform:translateX(-12px) scale(1)}
 .meal-card{padding:8px 7px 10px;border:1.5px solid #000;background:#fff}
 .meal-art .sprite-art,.food-thumb-art .sprite-art{transform:scale(.96)}
 .detail-mascot .sprite-art{transform:scale(.9)}
