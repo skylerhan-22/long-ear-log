@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     images: ["/og.png"],
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/app-icon-192.png",
+    shortcut: "/app-icon-192.png",
   },
   manifest: "/manifest.webmanifest",
   appleWebApp: {

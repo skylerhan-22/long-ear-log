@@ -18,7 +18,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .hero-panel h2 { margin:14px 0 8px; max-width:220px; font-size:23px; line-height:1.15; }
 .hero-panel p { margin:0; font-size:11px; color:var(--muted); }
 .mascot-sprite { aspect-ratio:1; background-repeat:no-repeat; background-color:transparent; background-blend-mode:multiply; mix-blend-mode:multiply; flex:none; }
-.hero-mascot { width:128px; height:128px; align-self:end; display:block; object-fit:contain; transform:translate(10px,8px); }
+.hero-mascot { width:148px; height:148px; align-self:end; display:block; object-fit:contain; transform:translate(-2px,9px) scale(1.12); }
 .comic-card { background:var(--card); border:2px solid var(--ink); box-shadow:4px 5px 0 var(--deep); }
 .workout-card { padding:18px; transform:rotate(-.25deg); }
 .card-heading h3,.section-title h3 { margin:2px 0 5px; font-size:21px; }
@@ -111,7 +111,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 
 /* Week plan and detail */
 .week-summary{min-height:120px;justify-content:space-between;overflow:hidden;background:#e5d7bd}
-.week-mascot{width:138px;height:138px;margin:-8px 0 -8px auto;object-fit:contain}
+.week-mascot{width:154px;height:154px;margin:-16px -5px -16px auto;object-fit:contain;transform:scale(1.08)}
 .tap-hint{margin:-2px 0 14px;padding:9px 10px;border:1px dashed var(--ink);background:#e9dfcf;color:var(--muted);font-size:9px;line-height:1.5}
 .plan-list{border-top:1.5px solid var(--ink)}
 .plan-row{grid-template-columns:38px 1fr auto;padding:9px 6px;border-color:var(--line);border-left:4px solid transparent}
@@ -126,7 +126,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .subpage-header button:first-child{text-align:left;font-size:20px}.subpage-header button:last-child{text-align:right}.subpage-header>span{font-size:12px;font-weight:900}.subpage-header i{display:block}
 .plan-detail-hero{min-height:190px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;margin:18px 0;padding:18px;background:#d3bd91;border:2px solid var(--ink);overflow:hidden}
 .plan-detail-hero h1{font-size:25px}.plan-detail-hero p:last-child{margin:9px 0 0;color:var(--muted);font-size:10px;line-height:1.6}
-.detail-mascot{width:145px;height:145px;margin-left:-10px}
+.detail-mascot{width:145px;height:145px;margin-left:-10px;transform:scale(1.1)}
 .detail-exercises{display:grid;gap:10px}.detail-exercises article{display:grid;grid-template-columns:36px 1fr;gap:9px;padding:14px;background:#fffdf7;border:1.5px solid var(--ink)}
 .detail-exercises article>span{font-size:10px;font-weight:900;color:var(--deep)}.detail-exercises article>div{display:grid;gap:4px}.detail-exercises strong{font-size:13px}.detail-exercises small{font-size:9px;color:var(--muted)}.detail-start{margin-top:8px}
 .rest-day-card{display:grid;place-items:center;padding:24px;background:#fffdf7;border:2px dashed var(--ink);text-align:center}.rest-mascot{width:180px;height:180px}.rest-day-card strong{font-size:15px}.rest-day-card p{margin:6px 0 0;color:var(--muted);font-size:10px}
@@ -156,7 +156,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .nutrition-form{padding:12px;background:#fffdf7;border:1.5px solid var(--line)}.entry-save{margin-top:12px}.entry-save:disabled{background:#ead9b5;color:#9a8764;border-color:var(--line);opacity:1}
 
 /* Profile illustration is now a large, balanced composition */
-.profile-hero{justify-content:space-between;padding:14px 16px 8px 22px}.profile-hero>div{position:relative;z-index:2;flex:none}.profile-mascot{width:168px;height:168px;margin:0 -8px -5px -18px}
+.profile-hero{justify-content:space-between;padding:14px 16px 8px 22px}.profile-hero>div{position:relative;z-index:2;flex:none}.profile-mascot{width:178px;height:178px;margin:0 -8px -5px -18px;transform:scale(1.12)}
 
 @media(max-width:380px){
   .profile-mascot{width:145px;height:145px}
@@ -202,8 +202,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .mascot-sprite{position:relative;overflow:hidden;background-color:#fff;filter:none;mix-blend-mode:normal}
 .sprite-art{position:absolute;inset:0;display:block;background-repeat:no-repeat;transform:scale(.78);transform-origin:center center}
 .meal-card{padding:8px 7px 10px;border:1.5px solid #000;background:#fff}
-.meal-art .sprite-art,.food-thumb-art .sprite-art{transform:scale(.96)}
-.detail-mascot .sprite-art{transform:scale(.9)}
+.meal-art,.food-thumb-art{display:block;object-fit:contain}
 .standalone-detail-mascot{display:block;object-fit:contain}
 .meal-photo,.food-thumb-art{border:0}
 .calendar-stamp{width:88%;height:88%;display:block;object-fit:contain;mix-blend-mode:multiply}
@@ -225,7 +224,7 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .workout-screen{padding:0;background:#fff}
 .workout-scroll{min-height:0;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
 .workout-scroll::-webkit-scrollbar{display:none}
-.workout-clock{position:sticky;top:0;z-index:8;min-height:45vh;max-height:390px;display:grid;grid-template-columns:54px 1fr 86px;align-items:start;padding:18px;border-bottom:2px solid #000;background:#fff;transition:min-height .24s ease,max-height .24s ease,padding .24s ease}
+.workout-clock{position:sticky;top:0;z-index:8;min-height:45vh;max-height:390px;display:grid;grid-template-columns:54px 1fr 86px;align-items:start;padding:18px;border-bottom:2px solid #000;background:#fff}
 .clock-back,.clock-toggle{border:0;background:transparent;color:#000;font-weight:900}
 .clock-back{font-size:22px;text-align:left}
 .clock-toggle{align-self:center;min-height:44px;border:2px solid #000;background:#000;color:#fff}
@@ -245,3 +244,123 @@ h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:0; font-size:26px; letter-spacin
 .workout-controls{width:100%;margin:0;padding:15px 18px 22px}
 
 @media(max-width:480px){.workout-clock{min-height:46vh;max-height:none}}
+
+/* Persistent history, multi-entry meals and quick reuse */
+.training-segmented{margin:16px 0}
+.history-list{display:grid;border-top:1.5px solid #000}
+.history-list>button{min-height:78px;padding:8px 4px;display:grid;grid-template-columns:64px 1fr 20px;align-items:center;gap:10px;border:0;border-bottom:1.5px solid #000;background:#fff;text-align:left}
+.history-list img{width:60px;height:60px;object-fit:contain}.history-list span{display:grid;gap:5px}.history-list strong{font-size:13px}.history-list small{font-size:9px}.history-list em{font-style:normal;text-align:right}
+.empty-state{padding:40px 18px;border:1.5px dashed #000;text-align:center}.empty-state p{margin:7px 0 0;font-size:10px}
+.record-screen{z-index:42}.record-hero{min-height:190px;margin:18px 0;display:grid;grid-template-columns:1.25fr .75fr;align-items:center;padding:16px;border:2px solid #000;overflow:hidden}.record-hero h1{font-size:26px}.record-hero p:last-child{margin:8px 0 0;font-size:10px}.record-hero img{width:150px;height:150px;object-fit:contain;transform:scale(1.08)}
+.record-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid #000;margin-bottom:16px}.record-stats article{min-width:0;padding:14px 6px;display:grid;gap:5px;text-align:center;border-right:1px solid #000}.record-stats article:last-child{border-right:0}.record-stats strong{font-size:17px}.record-stats small{font-size:8px}
+.record-exercises{display:grid;gap:8px;margin-bottom:16px}.record-exercises article{display:grid;gap:4px;padding:12px;border:1px solid #000}.record-exercises strong{font-size:12px}.record-exercises small{font-size:9px}.record-placeholder{padding:16px;border:1px dashed #000;font-size:9px}
+.record-note{display:grid;gap:6px;margin-bottom:16px;font-size:9px;font-weight:900}.record-note textarea{min-height:90px;padding:10px;border:1.5px solid #000;resize:vertical;background:#fff}
+.secondary-action,.danger-action{width:100%;min-height:44px;margin-top:10px;border:1.5px solid #000;background:#fff;font-weight:900}.danger-action{text-decoration:underline}
+.meal-group-screen,.meal-detail-screen{z-index:40}.meal-group-hero{display:grid;grid-template-columns:120px 1fr;align-items:center;margin:18px 0;padding:12px;border:2px solid #000}.meal-group-hero img{width:110px;height:110px;object-fit:contain}.meal-group-hero h1{font-size:25px}.meal-group-hero p:last-child{margin:7px 0 0;font-size:10px}
+.meal-group-list{display:grid;margin-bottom:14px;border-top:1.5px solid #000}.meal-group-list button{min-height:62px;padding:8px;display:grid;grid-template-columns:1fr auto 18px;align-items:center;gap:8px;border:0;border-bottom:1px solid #000;background:#fff;text-align:left}.meal-group-list span{display:grid;gap:4px}.meal-group-list strong{font-size:12px}.meal-group-list small{font-size:9px}.meal-group-list b{font-size:11px}.meal-group-list em{font-style:normal}
+.meal-detail-photo{width:100%;height:230px;margin:18px 0 14px;border:2px solid #000;object-fit:cover}.meal-detail-art{height:220px;margin:18px 0 14px;display:grid;place-items:center;border:2px solid #000;position:relative;overflow:hidden}.meal-detail-art img{width:210px;height:210px;object-fit:contain}.meal-detail-art span{position:absolute;right:12px;bottom:10px;padding:4px 7px;border:1.5px solid #000;background:#fff;font-size:9px;font-weight:900}.meal-detail-name{font-size:25px}.meal-detail-time{margin:5px 0 16px;font-size:9px}.meal-detail-calories{display:flex;align-items:end;gap:5px;margin-bottom:14px}.meal-detail-calories strong{font-size:48px;line-height:1}.meal-detail-calories span{padding-bottom:5px;font-weight:900}
+.quick-meals{margin:14px 0;padding:12px;border:1.5px solid #000}.quick-meals>div:first-child,.quick-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.quick-meals strong{font-size:11px}.quick-meals small{font-size:8px}.quick-title{margin-top:12px}.quick-meal-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}.quick-meal-list button{min-width:0;min-height:44px;padding:7px;display:grid;gap:3px;border:1px solid #000;background:#fff;text-align:left}.quick-meal-list span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;font-weight:900}.quick-meal-list b{font-size:8px}
+.meal-name-field{display:grid;gap:5px;margin-bottom:12px;font-size:8px;font-weight:900}.meal-name-field input{min-height:38px;padding:8px;border:1px solid #000;background:#fff}
+.meal-list .food-row{width:100%;min-height:70px;padding:6px 0;display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:10px;border:0;border-bottom:1px solid #000;background:#fff;text-align:left}.food-row>div{display:grid;gap:4px;min-width:0}.food-row b{font-size:10px;white-space:nowrap}.food-row small{font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Clear daily nutrition summary: intentionally shown only in the day view */
+.nutrition-card{padding:16px;margin-bottom:18px;transform:none}
+.nutrition-head{display:flex;align-items:end;justify-content:space-between;gap:12px}
+.nutrition-head>div{display:grid;gap:5px}.nutrition-head>div>small{font-size:9px;font-weight:800}.nutrition-head>strong{display:flex;align-items:end;gap:4px;font-size:34px;line-height:1}.nutrition-head>strong small{padding-bottom:3px;font-size:10px}
+.macro-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:16px}
+.macro-row article{min-width:0;padding:10px 7px;border:1.5px solid #000;background:#fff}
+.macro-row article>span{display:grid;place-items:center;width:22px;height:22px;margin-bottom:8px;border-radius:50%;background:#000;color:#fff;font-size:10px;font-weight:900}
+.macro-row article>div{display:flex;align-items:end;gap:2px}.macro-row article strong{font-size:20px;line-height:1}.macro-row article small{font-size:8px}.macro-row article p{margin:5px 0 0;font-size:8px;font-weight:900}
+.empty-day{width:100%;min-height:86px;display:grid;place-items:center;gap:6px;border:1.5px dashed #000;background:#fff;font-weight:900}.empty-day span{font-size:9px;text-decoration:underline}
+
+/* Real record-driven month calendar */
+.month-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:8px 0 5px;text-align:center;font-size:8px;font-weight:900}
+.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;border:0;background:#fff}
+.month-grid button{position:relative;aspect-ratio:1;overflow:hidden;padding:0;border:0;background:#fff;color:#000;font-size:9px}
+.month-grid button>span{position:absolute;z-index:3;top:4px;left:4px;width:18px;padding:0!important;background:transparent!important;color:inherit;font-size:8px;font-weight:800;line-height:12px;text-align:left}
+.month-grid button.muted{opacity:.24;color:#000}.month-grid button.marked{opacity:1}
+.month-stamp{position:absolute;z-index:1;top:32%;left:19%;width:62%;height:62%;object-fit:contain;mix-blend-mode:multiply}
+.month-summary{margin-top:18px}
+.month-title button:focus-visible,.segmented button:focus-visible{outline:2px solid #000;outline-offset:2px}
+
+/* AI result confirmation */
+.ai-review{display:grid;gap:9px;margin:12px 0;padding:12px;border:2px solid #000;background:#fff}
+.ai-review header{display:flex;align-items:start;justify-content:space-between}.ai-review header div{display:grid;gap:3px}.ai-review header strong{font-size:13px}.ai-review header small{font-size:8px}.ai-review header>span{padding:3px 6px;border:1px solid #000;font-size:8px;font-weight:900}
+.ai-review article{display:grid;grid-template-columns:26px 1fr 70px auto;align-items:end;gap:6px;padding:8px 0;border-bottom:1px solid #000}.ai-review article>span{font-size:9px;font-weight:900}.ai-review label{display:grid;gap:3px;font-size:7px;font-weight:900}.ai-review input{min-width:0;height:30px;padding:5px;border:1px solid #000;background:#fff}.ai-review article>b{padding-bottom:8px;font-size:8px;white-space:nowrap}.ai-review>p{margin:2px 0;font-size:8px;line-height:1.6}
+
+/* Editable profile, weekly insight and local data center */
+.ai-panel .ai-sample{background:#fff;color:#000}
+.account-screen,.insights-screen,.data-center-screen{z-index:44}
+.account-intro,.insights-title{margin:18px 0}.account-intro h1,.insights-title h1{font-size:26px}.account-intro p:last-child,.insights-title p:last-child{margin:8px 0 0;font-size:9px;line-height:1.6}
+.profile-form{display:grid;gap:12px;margin-bottom:16px}.profile-form>div{display:grid;grid-template-columns:1fr 1fr;gap:8px}.profile-form label{display:grid;gap:5px;font-size:9px;font-weight:900}.profile-form input{min-height:42px;padding:9px;border:1.5px solid #000;background:#fff}.profile-form fieldset{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px;border:1.5px solid #000}.profile-form legend{padding:0 5px;font-size:8px;font-weight:900}.profile-form fieldset button{min-height:38px;border:1px solid #000;background:#fff;font-weight:900}.profile-form fieldset button.active{background:#000;color:#fff}
+.insight-stats{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid #000;margin-bottom:14px}.insight-stats article{display:grid;gap:5px;padding:14px;border-right:1px solid #000;border-bottom:1px solid #000}.insight-stats article:nth-child(2n){border-right:0}.insight-stats article:nth-child(n+3){border-bottom:0}.insight-stats strong{font-size:22px}.insight-stats small{font-size:8px;font-weight:900}
+.trend-card{margin:12px 0;padding:13px;border:1.5px solid #000}.trend-card header{display:flex;justify-content:space-between}.trend-card header strong{font-size:11px}.trend-card header small{font-size:8px}.trend-bars{height:126px;display:flex;align-items:end;justify-content:space-around;gap:7px;padding-top:14px}.trend-bars>div{height:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:5px}.trend-bars span{width:100%;max-width:24px;min-height:4px;background:#000}.trend-bars small{font-size:7px}.workout-trend{height:112px}
+.local-account{display:grid;gap:10px;padding:12px;border:1.5px solid #000}.local-account label{display:grid;gap:5px;font-size:8px;font-weight:900}.local-account input{min-height:40px;padding:8px;border:1px solid #000}.local-account .secondary-action{margin:0}.local-account>div{display:flex;justify-content:space-between;padding-top:9px;border-top:1px solid #000;font-size:9px}.local-account b{font-size:8px}
+.data-actions{margin:20px 0}.data-actions h2,.privacy-card h2{font-size:14px}.data-actions>button{width:100%;min-height:62px;display:grid;grid-template-columns:48px 1fr 20px;align-items:center;gap:8px;padding:8px;border:0;border-top:1px solid #000;background:#fff;text-align:left}.data-actions>button:last-child{border-bottom:1px solid #000}.data-actions>button>span{font-size:9px;font-weight:900}.data-actions>button>div{display:grid;gap:4px}.data-actions strong{font-size:11px}.data-actions small{font-size:8px}.data-actions em{font-style:normal}.privacy-card{padding:13px;border:1.5px solid #000}.privacy-card p{margin:7px 0 0;font-size:9px;line-height:1.7}
+.app-loading{min-height:100dvh;display:grid;place-content:center;gap:8px;text-align:center}.app-loading span{font-size:9px;font-weight:900;letter-spacing:.18em}.app-loading strong{font-size:18px}
+
+/* V1.0 final image safe areas */
+.hero-panel,.week-summary,.record-hero,.profile-hero,.plan-detail-hero,.entry-intro{overflow:hidden}
+.profile-hero{min-height:196px;padding:14px 18px 12px 22px;align-items:center}
+.profile-hero>div{min-width:0}
+.profile-mascot{width:154px;height:166px;max-width:45%;margin:0;transform:none;object-fit:contain;align-self:center;flex:none}
+.week-summary{min-height:136px;padding:12px 16px;align-items:center}
+.week-mascot{width:136px;height:136px;max-width:43%;margin:0;transform:none;object-fit:contain;align-self:center;flex:none}
+.hero-mascot.complete{width:132px;height:146px;max-width:100%;margin:0;transform:none;object-fit:contain;align-self:center;justify-self:center}
+.record-hero{min-height:190px}
+.record-hero .record-mascot{width:138px;height:150px;max-width:100%;margin:0;transform:none;object-fit:contain;align-self:center;justify-self:center}
+.plan-detail-hero .detail-mascot{max-width:100%;margin:0;transform:none;object-fit:contain;justify-self:center}
+
+/* Daily macro values, without nested cards */
+.macro-row{gap:16px;margin-top:18px}
+.macro-row article{padding:10px 2px 8px;border:0;background:transparent;text-align:left}
+
+/* Rabbit stamp and illustrated four-meal status */
+.week-list-head,.week-food-row{grid-template-columns:88px 1fr 66px}
+.week-food-row{min-height:62px}
+.week-food-day img.food-day-stamp{width:38px;height:38px;border:0;border-radius:0;object-fit:contain;mix-blend-mode:multiply}
+.week-meal-status{gap:6px}
+.week-meal-status .meal-status-icon{position:relative;width:30px;height:30px;display:block;border:0;border-radius:0;background-color:transparent;background-image:url("/meal-status-icons.png");background-repeat:no-repeat;background-size:200% 200%;opacity:.18;color:transparent}
+.week-meal-status .meal-status-icon.breakfast{background-position:0 0}
+.week-meal-status .meal-status-icon.lunch{background-position:100% 0}
+.week-meal-status .meal-status-icon.dinner{background-position:0 100%}
+.week-meal-status .meal-status-icon.snack{background-position:100% 100%}
+.week-meal-status .meal-status-icon.logged{background-color:transparent;background-image:url("/meal-status-icons.png");color:transparent;opacity:1}
+.week-meal-status .meal-status-icon.logged::after{content:"";position:absolute;left:25%;right:25%;bottom:-4px;height:2px;background:#000}
+
+/* Overall training database and weight trend */
+.training-segmented{grid-template-columns:repeat(3,1fr)}
+.training-data-screen{display:grid;gap:14px}
+.training-data-intro{padding:18px 2px 4px}
+.training-data-intro h2{margin:4px 0 7px;font-size:25px}
+.training-data-intro p:last-child{margin:0;font-size:9px;line-height:1.6}
+.training-overview{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid #000}
+.training-overview article{min-width:0;padding:13px 5px;display:grid;gap:4px;text-align:center;border-right:1px solid #000}
+.training-overview article:last-child{border-right:0}
+.training-overview strong{font-size:20px}.training-overview small{font-size:8px;font-weight:900}
+.exercise-trend-card{padding:14px;border:2px solid #000}
+.exercise-trend-card header{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.exercise-trend-card header>div{display:grid;gap:4px}.exercise-trend-card h3{margin:0;font-size:17px}.exercise-trend-card header small{font-size:8px}
+.exercise-trend-card header>strong{font-size:22px;white-space:nowrap}
+.exercise-trend-card svg{width:100%;height:156px;margin:8px 0 2px;overflow:visible}
+.exercise-trend-card svg line{stroke:#000;stroke-width:1}
+.exercise-trend-card svg polyline{fill:none;stroke:#000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.exercise-trend-card svg circle{fill:#fff;stroke:#000;stroke-width:2}
+.exercise-trend-card svg text{fill:#000;font-size:7px;font-weight:800;text-anchor:middle}
+.exercise-trend-card>p{margin:0;padding-top:9px;border-top:1px solid #000;font-size:8px;line-height:1.6}
+.exercise-database{display:grid;border-top:1.5px solid #000}
+.data-section-title{display:flex;justify-content:space-between;align-items:center;padding:11px 2px 8px}
+.data-section-title h3,.data-section-title strong{margin:0;font-size:14px}.data-section-title span,.data-section-title small{font-size:8px;font-weight:900}
+.exercise-database>button{min-height:68px;padding:6px 4px;display:grid;grid-template-columns:56px 1fr auto 16px;align-items:center;gap:8px;border:0;border-bottom:1px solid #000;background:#fff;color:#000;text-align:left}
+.exercise-database>button.active{box-shadow:inset 4px 0 0 #000}
+.exercise-database img{width:52px;height:52px;object-fit:contain}
+.exercise-database button>span{display:grid;gap:4px}.exercise-database button strong{font-size:11px}.exercise-database button small{font-size:8px}
+.exercise-database button>b{font-size:10px;white-space:nowrap}.exercise-database button>em{font-style:normal;text-align:right}
+
+@media(max-width:380px){
+  .profile-mascot{width:136px;height:150px}
+  .week-mascot{width:118px;height:126px}
+  .macro-row{gap:8px}
+  .week-list-head,.week-food-row{grid-template-columns:78px 1fr 54px}
+  .week-meal-status{gap:3px}.week-meal-status .meal-status-icon{width:25px;height:25px}
+}

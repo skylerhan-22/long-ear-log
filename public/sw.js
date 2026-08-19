@@ -1,5 +1,5 @@
-const CACHE = "long-ear-log-v2";
-const ASSETS = ["/", "/manifest.webmanifest", "/rabbit-actions-hd.png", "/rabbit-food-hd.png", "/rabbit-meals-closeup.png", "/rabbit-upper-push.png", "/rabbit-stretch.png", "/rabbit-back.png", "/rabbit-walk.png", "/rabbit-squat-standalone.png", "/rabbit-full-body.png", "/rabbit-rest.png", "/rabbit-week-start.png", "/rabbit-week-progress.png", "/rabbit-week-complete.png", "/rabbit-today-wave.png", "/rabbit-today-complete.png", "/rabbit-profile-checklist.png", "/rabbit-stamp.png"];
+const CACHE = "long-ear-log-v7";
+const ASSETS = ["/", "/manifest.webmanifest", "/app-icon-192.png", "/app-icon-512.png", "/rabbit-breakfast.png", "/rabbit-lunch.png", "/rabbit-dinner.png", "/rabbit-snack.png", "/rabbit-food-entry.png", "/rabbit-food-calendar.png", "/rabbit-upper-push.png", "/rabbit-stretch.png", "/rabbit-back.png", "/rabbit-walk.png", "/rabbit-squat-standalone.png", "/rabbit-full-body.png", "/rabbit-rest.png", "/rabbit-week-start.png", "/rabbit-week-progress.png", "/rabbit-week-complete.png", "/rabbit-today-wave.png", "/rabbit-today-complete.png", "/rabbit-profile-checklist.png", "/rabbit-stamp.png", "/meal-status-icons.png"];
 self.addEventListener("install", (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS))));
 self.addEventListener("activate", (event) => event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))));
 self.addEventListener("fetch", (event) => {
