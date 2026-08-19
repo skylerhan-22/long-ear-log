@@ -38,15 +38,42 @@ Long Ear Log 希望解决三个问题：
 
 ## 产品 Demo
 
-| 今日：训练与饮食概览 | 训练：周计划与完成情况 |
-| --- | --- |
-| <img src="./public/screenshots/demo-today.jpg" alt="Long Ear Log 今日页面" width="320" /> | <img src="./public/screenshots/demo-training.jpg" alt="Long Ear Log 训练页面" width="320" /> |
+### 今日与周训练
 
-| 饮食：周记录与打卡徽章 | 我的：个人资料与数据入口 |
+| 今日 | 本周训练 |
 | --- | --- |
-| <img src="./public/screenshots/demo-food.jpg" alt="Long Ear Log 饮食页面" width="320" /> | <img src="./public/screenshots/demo-profile.jpg" alt="Long Ear Log 我的页面" width="320" /> |
+| <img src="./public/screenshots/demo-today-v1.png" alt="Long Ear Log 今日页面" width="320" /> | <img src="./public/screenshots/demo-training-v1.png" alt="Long Ear Log 本周训练页面" width="320" /> |
 
-以上截图来自可交互 Demo。页面中的训练、饮食和用户数据为演示内容，可在浏览器本地修改和保存。
+- **今日**：集中展示当天训练状态、每周完成进度和饮食概览，用户可以继续记录餐食或查看训练总结。
+- **本周训练**：按周一至周日展示训练日和休息日，并提供本周计划、训练历史和训练数据三个入口。
+
+### 饮食日志与个人资料
+
+| 饮食日志 | 我的 |
+| --- | --- |
+| <img src="./public/screenshots/demo-food-v1.png" alt="Long Ear Log 饮食日志页面" width="320" /> | <img src="./public/screenshots/demo-profile-v1.png" alt="Long Ear Log 我的页面" width="320" /> |
+
+- **饮食日志**：支持日、周、月三种查看方式；日视图汇总热量和三大营养素，并保留同一天的多条正餐与加餐记录。
+- **我的**：展示个人目标、身高、体重和每周训练目标，并提供资料编辑、趋势、账号、数据与提醒设置。
+
+### 餐食记录与 AI 辅助识别
+
+| 记录一餐 | AI 辅助估算 |
+| --- | --- |
+| <img src="./public/screenshots/demo-food-entry-v1.png" alt="Long Ear Log 记录餐食页面" width="320" /> | <img src="./public/screenshots/demo-ai-recognition-v1.png" alt="Long Ear Log AI 饮食识别演示" width="320" /> |
+
+- **记录一餐**：用户可以上传食物照片，也可以复用最近记录或常用餐食，减少重复输入。
+- **AI 辅助估算**：识别食物、份量和热量后，由用户确认或修改结果，再补充可选营养数据并选择早餐、午餐、晚餐或零食。1.0 中该功能为交互 Demo，不会把照片上传到真实识别模型。
+
+### 编辑每周训练
+
+<p align="center">
+  <img src="./public/screenshots/demo-training-editor-v1.png" alt="Long Ear Log 编辑每周训练页面" width="320" />
+</p>
+
+- **训练计划编辑**：用户可编辑每天的名称和训练类型，在训练日与休息日之间切换，并设置每个动作的组数、次数和重量。
+
+以上截图来自可交互 Demo。页面中的训练、饮食和用户数据均为演示内容，可在浏览器本地修改和保存。
 
 ## 信息架构
 
